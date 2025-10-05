@@ -1,0 +1,53 @@
+'use client';
+
+import { createContext, useContext, ReactNode, useMemo } from 'react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { BackpackWalletAdapter } from '@solana/wallet-adapter-backpack';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { clusterApiUrl } from '@solana/web3.js';
+
+interface WalletContextType {
+  // Add any additional context values here if needed
+}
+
+const WalletContext = createContext<WalletContextType>({});
+
+export const useWalletContext = () => useContext(WalletContext);
+
+interface AppWalletProviderProps {
+  children: ReactNode;
+}
+
+export function AppWalletProvider({ children }: AppWalletProviderProps) {
+  // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'
+  const network = WalletAdapterNetwork.Mainnet;
+
+  // Use Helius RPC endpoint with API key for better reliability
+  const endpoint = useMemo(() => {
+    // Using Helius RPC with API key for unlimited requests and better performance
+    return 'https://mainnet.helius-rpc.com/?api-key=5109e041-bdb2-4d79-a330-afacf4eac699';
+  }, [network]);
+
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+      new BackpackWalletAdapter(),
+    ],
+    []
+  );
+
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect={true}>
+        <WalletModalProvider>
+          <WalletContext.Provider value={{}}>
+            {children}
+          </WalletContext.Provider>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+}
