@@ -2,14 +2,14 @@
 
 import { createContext, useContext, ReactNode, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { BackpackWalletAdapter } from '@solana/wallet-adapter-backpack';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@solana/web3.js';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface WalletContextType {
-  // Add any additional context values here if needed
+  // Future: Add wallet-specific context values here
+  // For example: selectedToken, transactionHistory, etc.
 }
 
 const WalletContext = createContext<WalletContextType>({});
@@ -21,14 +21,13 @@ interface AppWalletProviderProps {
 }
 
 export function AppWalletProvider({ children }: AppWalletProviderProps) {
-  // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'
-  const network = WalletAdapterNetwork.Mainnet;
+  // Using mainnet for production deployment
 
   // Use Helius RPC endpoint with API key for better reliability
   const endpoint = useMemo(() => {
     // Using Helius RPC with API key for unlimited requests and better performance
     return 'https://mainnet.helius-rpc.com/?api-key=5109e041-bdb2-4d79-a330-afacf4eac699';
-  }, [network]);
+  }, []);
 
   const wallets = useMemo(
     () => [

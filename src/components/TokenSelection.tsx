@@ -135,20 +135,22 @@ export function TokenSelection({ onTokenSelect }: TokenSelectionProps) {
       console.error('Error fetching tokens:', error);
       
       // Handle specific RPC errors
-      if (error.message.includes('403')) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      
+      if (errorMessage.includes('403')) {
         const errorMsg = 'RPC Access Forbidden - try using a different RPC endpoint or API key';
         console.error(errorMsg);
         setRpcError(errorMsg);
-      } else if (error.message.includes('429')) {
+      } else if (errorMessage.includes('429')) {
         const errorMsg = 'Rate limit exceeded - try again later';
         console.error(errorMsg);
         setRpcError(errorMsg);
-      } else if (error.message.includes('500')) {
+      } else if (errorMessage.includes('500')) {
         const errorMsg = 'RPC server error - try again later';
         console.error(errorMsg);
         setRpcError(errorMsg);
       } else {
-        setRpcError(`RPC Error: ${error.message}`);
+        setRpcError(`RPC Error: ${errorMessage}`);
       }
     } finally {
       setLoading(false);
