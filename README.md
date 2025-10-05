@@ -29,6 +29,7 @@ EVyCWRZMtMgGr2nyATXYSqQANRuGDnvBXBezFNvnmxqq,100
 ```
 
 ### Column Requirements:
+
 - **wallet**: Solana wallet addresses (Base58 format)
 - **amount**: Token amounts to distribute
 
@@ -37,24 +38,28 @@ Rows with missing addresses or amounts (including 0 values) will be skipped.
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 - A Solana wallet (Phantom, Solflare, or Backpack)
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/gmussi/airdrop-sol.git
 cd airdrop-sol
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Run the development server:
+
 ```bash
 npm run dev
 ```

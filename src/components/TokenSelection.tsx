@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
-import { getAccount, getMint } from '@solana/spl-token';
 import { Button } from './ui/Button';
 import { Coins, Wallet } from 'lucide-react';
 import Image from 'next/image';

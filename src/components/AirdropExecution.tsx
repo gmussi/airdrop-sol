@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { createTransferInstruction, getAssociatedTokenAddress } from '@solana/spl-token';
 import { Button } from './ui/Button';
 import { Send, CheckCircle, XCircle, AlertCircle, Loader2 } from 'lucide-react';
